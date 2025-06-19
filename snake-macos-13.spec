@@ -6,7 +6,11 @@ a = Analysis(
     ['mario.py'],
     pathex=[],
     binaries=[],
-    datas=[],
+    datas=[
+        ('goomba.png', '.'), 
+        ('mario.png', '.'), 
+        ('wallpaper.jpg', '.')
+    ],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
