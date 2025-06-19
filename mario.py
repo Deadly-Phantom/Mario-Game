@@ -57,6 +57,7 @@ class Player:
         if self.rect.y < 0:
             self.rect.y = 0
             self.velocity_y = 0
+            self.is_jumping = False
 
 # Obstacle class
 class Obstacle:
