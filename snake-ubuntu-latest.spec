@@ -6,7 +6,7 @@ a = Analysis(
     ['mario.py'],
     pathex=[],
     binaries=[],
-    datas=[('font/*.ttf', 'font')],
+    datas=[],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
