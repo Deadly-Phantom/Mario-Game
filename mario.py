@@ -1,4 +1,11 @@
 import pygame
+import sys
+import os
+
+def resource_path(filename):
+    if hasattr(sys, '_MEIPASS'):
+        return os.path.join(sys._MEIPASS, filename)
+    return os.path.join(os.path.abspath("."), filename)
 
 # Initialize Pygame
 pygame.init()
@@ -71,9 +78,12 @@ def main():
     font = pygame.font.Font(None, 74)  # Font for game over text
 
     # Load Images with transparency
-    player_image = pygame.image.load('mario.png').convert_alpha()  # Changed to mario.png
-    obstacle_image = pygame.image.load('goomba.png').convert_alpha()  # Ensure this file exists
-    background_image = pygame.image.load('wallpaper.jpg').convert()  # Load your background image
+    goomba_path = resource_path('goomba.png')
+    mario_path = resource_path('mario.png')
+    wallpaper_path = resource_path('wallpaper.jpg')
+    player_image = pygame.image.load(mario_path).convert_alpha()  # Changed to mario.png
+    obstacle_image = pygame.image.load(goomba_path).convert_alpha()  # Ensure this file exists
+    background_image = pygame.image.load(wallpaper_path).convert()  # Load your background image
 
     # Get the actual screen size
     screen_width, screen_height = pygame.display.get_surface().get_size()
