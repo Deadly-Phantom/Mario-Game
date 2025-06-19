@@ -20,6 +20,7 @@ OBSTACLE_HEIGHT = 30  # Height for the obstacle (Goomba)
 GRAVITY = 1
 JUMP_STRENGTH = 15
 GOOMBA_SPEED = 1  # Reduced speed for Goombas
+GROUND_Y = 743  # Adjust this value to match your background's ground level
 
 # Colors
 WHITE = (255, 255, 255)
@@ -28,8 +29,7 @@ RED = (255, 0, 0)
 # Player class
 class Player:
     def __init__(self, screen_height):
-        # Position the player at the very bottom of the screen
-        self.rect = pygame.Rect(100, screen_height - PLAYER_HEIGHT, PLAYER_WIDTH, PLAYER_HEIGHT)
+        self.rect = pygame.Rect(100, GROUND_Y, PLAYER_WIDTH, PLAYER_HEIGHT)
         self.velocity_y = 0
         self.is_jumping = False
 
@@ -48,22 +48,21 @@ class Player:
             self.velocity_y += GRAVITY  # Gravity pulls the player down
 
             # Check if the player has landed
-            if self.rect.y >= SCREEN_HEIGHT - PLAYER_HEIGHT:  # Reset position if on the ground
-                self.rect.y = SCREEN_HEIGHT - PLAYER_HEIGHT
+            if self.rect.y >= GROUND_Y:
+                self.rect.y = GROUND_Y
                 self.is_jumping = False
-                self.velocity_y = 0  # Reset vertical velocity
+                self.velocity_y = 0
 
         # Ensure the player doesn't go above the screen
         if self.rect.y < 0:
             self.rect.y = 0
             self.velocity_y = 0
-            self.is_jumping = False
+            #self.is_jumping = False
 
 # Obstacle class
 class Obstacle:
     def __init__(self, x, screen_height):
-        # Position the Goombas at the very bottom of the screen
-        self.rect = pygame.Rect(x, screen_height - OBSTACLE_HEIGHT, OBSTACLE_WIDTH, OBSTACLE_HEIGHT)
+        self.rect = pygame.Rect(x, GROUND_Y + PLAYER_HEIGHT - OBSTACLE_HEIGHT, OBSTACLE_WIDTH, OBSTACLE_HEIGHT)
 
     def move(self, player_x):
         # Simple decision-making to simulate neural network behavior
@@ -98,11 +97,10 @@ def main():
 
     def reset_game():
         player.rect.x = 100
-        player.rect.y = screen_height - PLAYER_HEIGHT  # Adjusted for new position
+        player.rect.y = GROUND_Y
         player.velocity_y = 0
         player.is_jumping = False
-        # Spread out 3 Goombas more (twice as far apart)
-        return [Obstacle(i * (screen_width // 3) + 300, screen_height) for i in range(3)]  # Adjusted spacing
+        return [Obstacle(i * (screen_width // 3) + 300, screen_height) for i in range(3)]
 
     player = Player(screen_height)
     obstacles = reset_game()
