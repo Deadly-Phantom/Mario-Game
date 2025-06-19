@@ -1,4 +1,4 @@
-name: MairoGame
+name: MarioGame
 on:
   workflow_dispatch:
 jobs:
